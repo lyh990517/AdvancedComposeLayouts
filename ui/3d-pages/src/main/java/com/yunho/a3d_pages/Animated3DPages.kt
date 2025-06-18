@@ -25,7 +25,7 @@ fun <T> Animated3DPages(
 
     Box(
         modifier = modifier
-            .setAnimation(
+            .setAnimationScope(
                 itemsSize = items.lastIndex,
                 cursor = { centerCursor },
                 onCursorChanged = { direction ->

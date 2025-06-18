@@ -13,7 +13,7 @@ import androidx.compose.ui.platform.LocalConfiguration
 import androidx.compose.ui.platform.LocalDensity
 import androidx.compose.ui.unit.dp
 
-internal fun Modifier.setAnimation(
+internal fun Modifier.setAnimationScope(
     itemsSize: Int,
     cursor: () -> Int,
     onCursorChanged: (Direction) -> Unit,
