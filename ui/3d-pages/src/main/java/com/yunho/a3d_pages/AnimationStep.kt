@@ -152,7 +152,7 @@ internal sealed interface AnimationStep {
         fun animateAsStep(
             targetStep: AnimationStep,
             animationSpec: FiniteAnimationSpec<Float> = tween(durationMillis = 700)
-        ): MutableState<AnimationStep> {
+        ): AnimationStep {
             val translationX by animateFloatAsState(
                 targetValue = targetStep.translationX,
                 animationSpec = animationSpec
@@ -170,19 +170,15 @@ internal sealed interface AnimationStep {
                 animationSpec = animationSpec
             )
 
-            return remember(translationX, rotationY, scale, alpha, targetStep) {
-                mutableStateOf(
-                    AnimatedStep(
-                        translationX = translationX,
-                        rotationY = rotationY,
-                        scale = scale,
-                        alpha = alpha,
-                        farFromCenter = targetStep.farFromCenter,
-                        next = targetStep.next,
-                        previous = targetStep.previous
-                    )
-                )
-            }
+            return AnimatedStep(
+                translationX = translationX,
+                rotationY = rotationY,
+                scale = scale,
+                alpha = alpha,
+                farFromCenter = targetStep.farFromCenter,
+                next = targetStep.next,
+                previous = targetStep.previous
+            )
         }
     }
 }

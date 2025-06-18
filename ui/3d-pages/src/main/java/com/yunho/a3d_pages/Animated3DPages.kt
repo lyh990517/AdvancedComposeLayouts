@@ -59,7 +59,7 @@ private fun <T> Animated3DPage(
     step: AnimationStep,
     itemContent: @Composable (T) -> Unit = {}
 ) {
-    val animatedStep by animateAsStep(step)
+    val animatedStep = animateAsStep(step)
 
     Box(
         modifier = Modifier.animateByStep(animatedStep)
