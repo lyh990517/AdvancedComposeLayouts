@@ -28,12 +28,7 @@ fun <T> Animated3DPages(
             .setAnimationScope(
                 itemsSize = items.lastIndex,
                 cursor = { centerCursor },
-                onCursorChanged = { direction ->
-                    centerCursor = when (direction) {
-                        Direction.LEFT -> steps.flip(centerCursor = centerCursor, direction = direction)
-                        Direction.RIGHT -> steps.flip(centerCursor = centerCursor, direction = direction)
-                    }
-                }
+                onCursorChanged = { direction -> centerCursor = steps.flip(centerCursor = centerCursor, direction = direction) }
             ),
         contentAlignment = Alignment.Center
     ) {
