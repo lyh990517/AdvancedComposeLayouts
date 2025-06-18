@@ -9,6 +9,9 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.composed
 import androidx.compose.ui.graphics.graphicsLayer
 import androidx.compose.ui.input.pointer.pointerInput
+import androidx.compose.ui.platform.LocalConfiguration
+import androidx.compose.ui.platform.LocalDensity
+import androidx.compose.ui.unit.dp
 
 internal fun Modifier.setAnimation(
     itemsSize: Int,
@@ -37,12 +40,17 @@ internal fun Modifier.setAnimation(
     }
 }
 
-internal fun Modifier.animateByStep(step: AnimationStep) = graphicsLayer {
-    alpha = step.alpha
-    translationX = step.translationX
-    rotationY = step.rotationY
-    scaleX = step.scale
-    scaleY = step.scale
+internal fun Modifier.animateByStep(step: AnimationStep) = composed {
+    val config = LocalConfiguration.current
+    val density = LocalDensity.current
 
-    cameraDistance = 16 * density
+    graphicsLayer {
+        alpha = step.alpha
+        translationX = step.translationX * with(density) { config.screenWidthDp.dp.toPx() }
+        rotationY = step.rotationY
+        scaleX = step.scale
+        scaleY = step.scale
+
+        cameraDistance = 16 * this.density
+    }
 }

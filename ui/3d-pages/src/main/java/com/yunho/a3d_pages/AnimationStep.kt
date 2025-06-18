@@ -19,8 +19,8 @@ internal sealed interface AnimationStep {
     val farFromCenter: Int
 
     data object OffscreenLeft : AnimationStep {
-        override val translationX: Float = -460f
-        override val rotationY: Float = 5f
+        override val translationX: Float = -0.5f
+        override val rotationY: Float = 3f
         override val scale: Float = 0.1f
         override val alpha: Float = 0f
         override val farFromCenter: Int = -3
@@ -29,8 +29,8 @@ internal sealed interface AnimationStep {
     }
 
     data object PeripheralLeft : AnimationStep {
-        override val translationX: Float = -380f
-        override val rotationY: Float = 5f
+        override val translationX: Float =- 0.4f
+        override val rotationY: Float = 5.5f
         override val scale: Float = 0.25f
         override val alpha: Float = 1f
         override val farFromCenter: Int = -2
@@ -39,8 +39,8 @@ internal sealed interface AnimationStep {
     }
 
     data object PrimaryLeft : AnimationStep {
-        override val translationX: Float = -200f
-        override val rotationY: Float = 15f
+        override val translationX: Float = -0.2f
+        override val rotationY: Float = 8f
         override val scale: Float = 0.5f
         override val alpha: Float = 1f
         override val farFromCenter: Int = -1
@@ -49,8 +49,8 @@ internal sealed interface AnimationStep {
     }
 
     data object Center : AnimationStep {
-        override val translationX: Float = 100f
-        override val rotationY: Float = 20f
+        override val translationX: Float = 0.05f
+        override val rotationY: Float = 10f
         override val scale: Float = 0.8f
         override val alpha: Float = 1f
         override val farFromCenter: Int = 0
@@ -59,9 +59,9 @@ internal sealed interface AnimationStep {
     }
 
     data object PrimaryRight : AnimationStep {
-        override val translationX: Float = 500f
-        override val rotationY: Float = 80f
-        override val scale: Float = 1.3f
+        override val translationX: Float = 0.5f
+        override val rotationY: Float = 86f
+        override val scale: Float = 1f
         override val alpha: Float = 1f
         override val farFromCenter: Int = 1
         override val next: AnimationStep? = OffscreenRight
@@ -69,7 +69,7 @@ internal sealed interface AnimationStep {
     }
 
     data object OffscreenRight : AnimationStep {
-        override val translationX: Float = 700f
+        override val translationX: Float = 2f
         override val rotationY: Float = 100f
         override val scale: Float = 1.4f
         override val alpha: Float = 0f
