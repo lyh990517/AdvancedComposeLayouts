@@ -21,3 +21,5 @@ dependencyResolutionManagement {
 
 rootProject.name = "AdvancedComposeLayouts"
 include(":app")
+include(":ui")
+include(":ui:3d-pages")
