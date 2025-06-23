@@ -1,6 +1,5 @@
 package com.yunho.metallic_shader_card
 
-import android.content.Context
 import android.hardware.Sensor
 import android.hardware.SensorEvent
 import android.hardware.SensorEventListener
@@ -16,7 +15,7 @@ import androidx.compose.ui.platform.LocalContext
 @Composable
 fun rememberDeviceRotation(): Pair<Float, Float> {
     val context = LocalContext.current
-    val sensorManager = remember { context.getSystemService(Context.SENSOR_SERVICE) as SensorManager }
+    val sensorManager = remember { context.getSystemService(SensorManager::class.java) }
     var pitch by remember { mutableFloatStateOf(0f) }
     var roll by remember { mutableFloatStateOf(0f) }
     var initialPitch by remember { mutableFloatStateOf(Float.NaN) }
