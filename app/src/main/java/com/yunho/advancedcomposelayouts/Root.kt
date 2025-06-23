@@ -23,5 +23,11 @@ fun Root() {
         ) {
             Text("Animated3DPages")
         }
+
+        Button(
+            onClick = { navController.navigateToMetallicShaderCard() }
+        ) {
+            Text("MetallicShaderCard")
+        }
     }
 }

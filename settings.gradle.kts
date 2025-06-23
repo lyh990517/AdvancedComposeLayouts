@@ -23,3 +23,4 @@ rootProject.name = "AdvancedComposeLayouts"
 include(":app")
 include(":ui")
 include(":ui:3d-pages")
+include(":ui:metallic-shader-card")
