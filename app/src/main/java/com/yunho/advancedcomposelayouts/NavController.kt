@@ -9,3 +9,7 @@ fun NavController.navigateToAnimated3DPages() {
 fun NavController.navigateToMetallicShaderCard() {
     navigate(MetallicShaderCard)
 }
+
+fun NavController.navigateToAnimatedGradient() {
+    navigate(AnimatedGradient)
+}

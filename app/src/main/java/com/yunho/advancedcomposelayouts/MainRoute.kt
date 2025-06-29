@@ -9,6 +9,9 @@ sealed interface MainRoute
 data object Animated3DPages : MainRoute
 
 @Serializable
+data object AnimatedGradient : MainRoute
+
+@Serializable
 data object MetallicShaderCard : MainRoute
 
 @Serializable

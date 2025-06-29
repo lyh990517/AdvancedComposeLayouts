@@ -29,5 +29,11 @@ fun Root() {
         ) {
             Text("MetallicShaderCard")
         }
+
+        Button(
+            onClick = { navController.navigateToAnimatedGradient() }
+        ) {
+            Text("AnimatedGradient")
+        }
     }
 }
