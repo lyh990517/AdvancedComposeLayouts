@@ -10,9 +10,9 @@ dependencies {
 
 gradlePlugin {
     plugins {
-        register("uiLibraryConvention") {
-            id = "ui.library.convention"
-            implementationClass = "UiLibraryConventionPlugin"
+        register("composeConvention") {
+            id = "convention.compose"
+            implementationClass = "ComposePlugin"
         }
     }
 }

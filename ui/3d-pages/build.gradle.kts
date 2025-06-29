@@ -1,5 +1,5 @@
 plugins {
-    id("ui.library.convention")
+    alias(libs.plugins.convention.compose)
 }
 
 android {
