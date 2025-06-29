@@ -55,5 +55,5 @@ fun rememberDeviceRotation(): Pair<Float, Float> {
         }
     }
 
-    return -pitch to -roll
+    return pitch to -roll
 }
