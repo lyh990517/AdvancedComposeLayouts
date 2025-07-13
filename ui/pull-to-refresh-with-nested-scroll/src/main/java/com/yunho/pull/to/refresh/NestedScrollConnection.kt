@@ -24,7 +24,7 @@ fun LazyListState.rememberNestedScrollConnectionWith(
     return remember {
         object : NestedScrollConnection, CoroutineScope by scope {
             fun Float.toOffset(): Offset = Offset(0f, this)
-            val atTop get() = !canScrollBackward
+            val isTop get() = !canScrollBackward
 
             override fun onPreScroll(available: Offset, source: NestedScrollSource): Offset {
                 val scroll = available.y
@@ -34,7 +34,7 @@ fun LazyListState.rememberNestedScrollConnectionWith(
 
                 return when {
                     firstVisibleItemIndex <= thresholdIndex -> {
-                        if (atTop) {
+                        if (isTop) {
                             launch { refreshState.pull(scroll) }
                         } else {
                             launch(Dispatchers.Main.immediate) { refreshState.rebound(scroll) }
