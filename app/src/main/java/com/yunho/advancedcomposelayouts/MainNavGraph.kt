@@ -78,7 +78,10 @@ fun MainNavGraph(
             }
 
             composable<PullToRefreshWithNestedScroll> {
-                PullToRefresh(modifier = Modifier.fillMaxSize())
+                PullToRefresh(
+                    samples = samples.map { painterResource(it) },
+                    modifier = Modifier.fillMaxSize()
+                )
             }
         }
     }
