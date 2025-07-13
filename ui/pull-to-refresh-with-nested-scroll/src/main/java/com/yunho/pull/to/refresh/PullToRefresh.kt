@@ -22,22 +22,18 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.input.nestedscroll.nestedScroll
 import androidx.compose.ui.layout.ContentScale
-import androidx.compose.ui.platform.LocalDensity
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.text.TextStyle
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
-import com.yunho.common.Lottie
-import com.yunho.common.R
 import com.yunho.common.samples
 
 @Composable
 fun PullToRefresh(
     modifier: Modifier = Modifier
 ) {
-    val density = LocalDensity.current
     val parentListState = rememberLazyListState()
     val refreshIndicator = remember {
         Animatable(0f)
@@ -67,14 +63,7 @@ fun PullToRefresh(
         }
 
         item {
-            Box(
-                modifier = Modifier
-                    .fillMaxWidth()
-                    .height(with(density) { refreshIndicator.value.toDp() }),
-                contentAlignment = Alignment.Center
-            ) {
-                Lottie(animId = R.raw.anim_loading)
-            }
+            RefreshIndicator(refreshIndicator)
         }
 
         item {
