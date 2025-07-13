@@ -10,6 +10,7 @@ import androidx.compose.ui.platform.LocalDensity
 import androidx.compose.ui.unit.Density
 import androidx.compose.ui.unit.Dp
 import androidx.compose.ui.unit.dp
+import kotlin.math.abs
 
 @Stable
 class RefreshState(
@@ -23,8 +24,12 @@ class RefreshState(
     val isPulling: Boolean get() = animatable.value != 0f
     val value get() = with(density) { animatable.value.toDp() }
 
-    suspend fun snapTo(value: Float) {
+    suspend fun pull(value: Float) {
         animatable.snapTo((animatable.value + value).coerceIn(0f..maxOffset))
+    }
+
+    suspend fun rebound(value: Float) {
+        animatable.snapTo((animatable.value - abs(value)).coerceIn(0f..maxOffset))
     }
 
     suspend fun refresh() {

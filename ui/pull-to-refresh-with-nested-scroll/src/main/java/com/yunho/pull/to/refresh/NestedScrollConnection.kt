@@ -11,7 +11,6 @@ import androidx.compose.ui.unit.Velocity
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
-import kotlin.math.abs
 
 @Composable
 fun LazyListState.rememberNestedScrollConnectionWith(
@@ -33,9 +32,9 @@ fun LazyListState.rememberNestedScrollConnectionWith(
                 return when {
                     firstVisibleItemIndex <= 1 -> {
                         if (atTop) {
-                            launch { refreshState.snapTo(scroll) }
+                            launch { refreshState.pull(scroll) }
                         } else {
-                            launch(Dispatchers.Main.immediate) { refreshState.snapTo(-abs(scroll)) }
+                            launch(Dispatchers.Main.immediate) { refreshState.rebound(scroll) }
 
                             if (refreshState.isPulling) return (-consumed).toOffset()
                         }
