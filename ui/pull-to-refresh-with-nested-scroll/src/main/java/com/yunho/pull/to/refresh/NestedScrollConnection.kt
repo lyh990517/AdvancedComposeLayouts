@@ -24,12 +24,12 @@ fun LazyListState.rememberNestedScrollConnectionWith(
 
             override fun onPreScroll(available: Offset, source: NestedScrollSource): Offset {
                 val scroll = available.y
+                val headerHeight = layoutInfo.visibleItemsInfo.first().size
+                val remainingScroll = headerHeight - scroll
+                val consumed = minOf(-scroll, remainingScroll)
 
                 return when {
                     firstVisibleItemIndex <= 1 -> {
-                        val headerHeight = layoutInfo.visibleItemsInfo.first().size
-                        val remainingScroll = headerHeight - scroll
-                        val consumed = minOf(-scroll, remainingScroll)
                         if (!canScrollBackward) {
                             scope.launch { refreshState.snapTo(scroll) }
                         } else {
@@ -41,6 +41,7 @@ fun LazyListState.rememberNestedScrollConnectionWith(
                         }
 
                         dispatchRawDelta(consumed)
+
                         if (source != NestedScrollSource.UserInput) {
                             Offset.Zero
                         } else {
