@@ -27,7 +27,7 @@ import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import com.yunho.common.samples
-import com.yunho.pull.to.refresh.RefreshIndicator.Companion.rememberRefreshIndicator
+import com.yunho.pull.to.refresh.RefreshState.Companion.rememberRefreshState
 import kotlinx.coroutines.delay
 
 @Composable
@@ -35,12 +35,12 @@ fun PullToRefresh(
     modifier: Modifier = Modifier
 ) {
     val parentListState = rememberLazyListState()
-    val refreshIndicator = rememberRefreshIndicator {
+    val refreshState = rememberRefreshState {
         delay(1000)
 
         reset()
     }
-    val nestedScrollConnection = parentListState.rememberNestedScrollConnectionWith(refreshIndicator)
+    val nestedScrollConnection = parentListState.rememberNestedScrollConnectionWith(refreshState)
 
     LazyColumn(
         state = parentListState,
@@ -66,7 +66,7 @@ fun PullToRefresh(
         }
 
         item {
-            RefreshIndicator(refreshIndicator)
+            RefreshIndicator(refreshState)
         }
 
         item {

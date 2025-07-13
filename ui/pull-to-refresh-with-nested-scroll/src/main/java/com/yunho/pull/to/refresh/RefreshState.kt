@@ -10,8 +10,8 @@ import androidx.compose.ui.unit.Dp
 import androidx.compose.ui.unit.dp
 
 @Stable
-class RefreshIndicator(
-    private val onRefresh: suspend RefreshIndicator.() -> Unit,
+class RefreshState(
+    private val onRefresh: suspend RefreshState.() -> Unit,
     private val density: Density,
     private val maxOffset: Float,
     private val refreshOffset: Float
@@ -41,17 +41,17 @@ class RefreshIndicator(
 
     companion object {
         @Composable
-        fun rememberRefreshIndicator(
+        fun rememberRefreshState(
             refreshOffset: Dp = 60.dp,
             maxOffset: Dp = 90.dp,
-            onRefresh: suspend RefreshIndicator.() -> Unit
-        ): RefreshIndicator {
+            onRefresh: suspend RefreshState.() -> Unit
+        ): RefreshState {
             val density = LocalDensity.current
             val maxOffset = with(density) { maxOffset.toPx() }
             val refreshOffset = with(density) { refreshOffset.toPx() }
 
             return remember {
-                RefreshIndicator(
+                RefreshState(
                     onRefresh = onRefresh,
                     density = density,
                     maxOffset = maxOffset,

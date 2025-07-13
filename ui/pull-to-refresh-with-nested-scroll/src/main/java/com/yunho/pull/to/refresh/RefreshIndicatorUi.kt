@@ -13,12 +13,12 @@ import com.yunho.common.R
 
 @Composable
 fun RefreshIndicator(
-    refreshIndicator: RefreshIndicator
+    refreshState: RefreshState
 ) {
     Box(
         modifier = Modifier
             .fillMaxWidth()
-            .height(refreshIndicator.value),
+            .height(refreshState.value),
         contentAlignment = Alignment.Center
     ) {
         Lottie(

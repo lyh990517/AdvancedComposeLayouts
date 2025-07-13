@@ -14,7 +14,7 @@ import kotlin.math.abs
 
 @Composable
 fun LazyListState.rememberNestedScrollConnectionWith(
-    refreshIndicator: RefreshIndicator
+    refreshState: RefreshState
 ): NestedScrollConnection {
     val scope = rememberCoroutineScope()
 
@@ -31,11 +31,11 @@ fun LazyListState.rememberNestedScrollConnectionWith(
                         val remainingScroll = headerHeight - scroll
                         val consumed = minOf(-scroll, remainingScroll)
                         if (!canScrollBackward) {
-                            scope.launch { refreshIndicator.snapTo(scroll) }
+                            scope.launch { refreshState.snapTo(scroll) }
                         } else {
-                            scope.launch(Dispatchers.Main.immediate) { refreshIndicator.snapTo(-abs(scroll)) }
+                            scope.launch(Dispatchers.Main.immediate) { refreshState.snapTo(-abs(scroll)) }
 
-                            if (refreshIndicator.isPulling) {
+                            if (refreshState.isPulling) {
                                 return (-consumed).toOffset()
                             }
                         }
@@ -53,7 +53,7 @@ fun LazyListState.rememberNestedScrollConnectionWith(
             }
 
             override suspend fun onPostFling(consumed: Velocity, available: Velocity): Velocity {
-                scope.launch { refreshIndicator.refresh() }
+                scope.launch { refreshState.refresh() }
 
                 return super.onPostFling(consumed, available)
             }
