@@ -8,6 +8,7 @@ import androidx.compose.ui.geometry.Offset
 import androidx.compose.ui.input.nestedscroll.NestedScrollConnection
 import androidx.compose.ui.input.nestedscroll.NestedScrollSource
 import androidx.compose.ui.unit.Velocity
+import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 import kotlin.math.abs
@@ -19,8 +20,9 @@ fun LazyListState.rememberNestedScrollConnectionWith(
     val scope = rememberCoroutineScope()
 
     return remember {
-        object : NestedScrollConnection {
+        object : NestedScrollConnection, CoroutineScope by scope {
             fun Float.toOffset(): Offset = Offset(0f, this)
+            val atTop get() = !canScrollBackward
 
             override fun onPreScroll(available: Offset, source: NestedScrollSource): Offset {
                 val scroll = available.y
@@ -30,14 +32,12 @@ fun LazyListState.rememberNestedScrollConnectionWith(
 
                 return when {
                     firstVisibleItemIndex <= 1 -> {
-                        if (!canScrollBackward) {
-                            scope.launch { refreshState.snapTo(scroll) }
+                        if (atTop) {
+                            launch { refreshState.snapTo(scroll) }
                         } else {
-                            scope.launch(Dispatchers.Main.immediate) { refreshState.snapTo(-abs(scroll)) }
+                            launch(Dispatchers.Main.immediate) { refreshState.snapTo(-abs(scroll)) }
 
-                            if (refreshState.isPulling) {
-                                return (-consumed).toOffset()
-                            }
+                            if (refreshState.isPulling) return (-consumed).toOffset()
                         }
 
                         dispatchRawDelta(consumed)
@@ -54,7 +54,7 @@ fun LazyListState.rememberNestedScrollConnectionWith(
             }
 
             override suspend fun onPostFling(consumed: Velocity, available: Velocity): Velocity {
-                scope.launch { refreshState.refresh() }
+                launch { refreshState.refresh() }
 
                 return super.onPostFling(consumed, available)
             }
