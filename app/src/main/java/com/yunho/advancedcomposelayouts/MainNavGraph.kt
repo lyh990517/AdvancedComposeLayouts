@@ -25,6 +25,7 @@ import com.yunho.advancedcomposelayouts.sample.samples
 import com.yunho.animated_gradient.AnimatedGradient
 import com.yunho.metallic_shader_card.MetallicShaderCard
 import com.yunho.metallic_shader_card.R
+import com.yunho.pull.to.refresh.PullToRefresh
 
 val LocalNavController = compositionLocalOf<NavController> {
     error("LocalNavController")
@@ -74,6 +75,10 @@ fun MainNavGraph(
 
             composable<AnimatedGradient> {
                 AnimatedGradient(modifier = Modifier.fillMaxSize())
+            }
+
+            composable<PullToRefreshWithNestedScroll> {
+                PullToRefresh(modifier = Modifier.fillMaxSize())
             }
         }
     }

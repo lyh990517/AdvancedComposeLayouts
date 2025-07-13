@@ -29,6 +29,7 @@
             <option value="$PROJECT_DIR$/ui/3d-pages" />
             <option value="$PROJECT_DIR$/ui/animated-gradient" />
             <option value="$PROJECT_DIR$/ui/metallic-shader-card" />
+            <option value="$PROJECT_DIR$/ui/pull-to-refresh-with-nested-scroll" />
           </set>
         </option>
       </GradleProjectSettings>

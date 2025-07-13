@@ -35,5 +35,11 @@ fun Root() {
         ) {
             Text("AnimatedGradient")
         }
+
+        Button(
+            onClick = { navController.navigateToPullToRefreshWithNestedScroll() }
+        ) {
+            Text("PullToRefreshWithNestedScroll")
+        }
     }
 }

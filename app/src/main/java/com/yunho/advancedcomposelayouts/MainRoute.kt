@@ -15,5 +15,8 @@ data object AnimatedGradient : MainRoute
 data object MetallicShaderCard : MainRoute
 
 @Serializable
+data object PullToRefreshWithNestedScroll : MainRoute
+
+@Serializable
 data object Root : MainRoute
 

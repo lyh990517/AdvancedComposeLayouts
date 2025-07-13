@@ -13,3 +13,8 @@ fun NavController.navigateToMetallicShaderCard() {
 fun NavController.navigateToAnimatedGradient() {
     navigate(AnimatedGradient)
 }
+
+fun NavController.navigateToPullToRefreshWithNestedScroll() {
+    navigate(PullToRefreshWithNestedScroll)
+}
+

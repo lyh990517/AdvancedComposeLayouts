@@ -42,6 +42,7 @@ dependencies {
     implementation(project(":ui:3d-pages"))
     implementation(project(":ui:metallic-shader-card"))
     implementation(project(":ui:animated-gradient"))
+    implementation(project(":ui:pull-to-refresh-with-nested-scroll"))
 
     implementation(libs.androidx.core.ktx)
     implementation(libs.androidx.lifecycle.runtime.ktx)
