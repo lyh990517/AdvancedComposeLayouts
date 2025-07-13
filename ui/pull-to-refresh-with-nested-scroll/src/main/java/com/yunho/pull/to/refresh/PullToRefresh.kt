@@ -59,8 +59,7 @@ fun PullToRefresh(
                 val scroll = available.y
 
                 return when {
-                    source != NestedScrollSource.UserInput -> Offset.Zero
-                    parentListState.firstVisibleItemIndex <= 1 && !childListState.canScrollBackward -> {
+                    parentListState.firstVisibleItemIndex <= 1 -> {
                         val headerHeight = parentListState.layoutInfo.visibleItemsInfo.first().size
                         val remainingScroll = headerHeight - scroll
                         val consumed = minOf(-scroll, remainingScroll)
@@ -86,8 +85,12 @@ fun PullToRefresh(
                             }
                         }
 
-                        parentListState.dispatchRawDelta(-scroll)
-                        (-consumed).toOffset()
+                        parentListState.dispatchRawDelta(consumed)
+                        if (source != NestedScrollSource.UserInput) {
+                            Offset.Zero
+                        } else {
+                            (-consumed).toOffset()
+                        }
                     }
 
                     else -> super.onPreScroll(available, source)
