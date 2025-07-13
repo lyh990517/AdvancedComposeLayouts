@@ -35,9 +35,8 @@ fun PullToRefresh(
     modifier: Modifier = Modifier
 ) {
     val parentListState = rememberLazyListState()
-    val refreshIndicator = remember {
-        Animatable(0f)
-    }
+    val refreshIndicator = remember { Animatable(0f) }
+    val nestedScrollConnection = parentListState.rememberNestedScrollConnectionWith(refreshIndicator)
 
     LazyColumn(
         state = parentListState,
@@ -70,11 +69,7 @@ fun PullToRefresh(
             LazyColumn(
                 modifier = Modifier
                     .navigationBarsPadding()
-                    .nestedScroll(
-                        connection = parentListState.rememberNestedScrollConnectionWithRefreshIndicator(
-                            refreshIndicator
-                        )
-                    )
+                    .nestedScroll(nestedScrollConnection)
                     .fillMaxWidth()
                     .height(1500.dp),
                 verticalArrangement = Arrangement.spacedBy(40.dp),

@@ -17,7 +17,7 @@ import kotlinx.coroutines.launch
 import kotlin.math.abs
 
 @Composable
-fun LazyListState.rememberNestedScrollConnectionWithRefreshIndicator(
+fun LazyListState.rememberNestedScrollConnectionWith(
     refreshIndicator: Animatable<Float, AnimationVector1D>,
 ): NestedScrollConnection {
     val scope = rememberCoroutineScope()
