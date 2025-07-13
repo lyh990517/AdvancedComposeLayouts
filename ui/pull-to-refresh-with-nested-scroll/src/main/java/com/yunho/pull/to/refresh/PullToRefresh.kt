@@ -27,6 +27,7 @@ import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import com.yunho.common.samples
+import com.yunho.pull.to.refresh.RefreshState.Companion.onRefresh
 import com.yunho.pull.to.refresh.RefreshState.Companion.rememberRefreshState
 import kotlinx.coroutines.delay
 
@@ -66,7 +67,11 @@ fun PullToRefresh(
         }
 
         item {
-            RefreshIndicator(refreshState)
+            RefreshIndicator(
+                modifier = Modifier
+                    .fillMaxWidth()
+                    .onRefresh(refreshState)
+            )
         }
 
         item {

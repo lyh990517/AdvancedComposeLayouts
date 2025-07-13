@@ -1,9 +1,11 @@
 package com.yunho.pull.to.refresh
 
 import androidx.compose.animation.core.Animatable
+import androidx.compose.foundation.layout.height
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.Stable
 import androidx.compose.runtime.remember
+import androidx.compose.ui.Modifier
 import androidx.compose.ui.platform.LocalDensity
 import androidx.compose.ui.unit.Density
 import androidx.compose.ui.unit.Dp
@@ -11,10 +13,10 @@ import androidx.compose.ui.unit.dp
 
 @Stable
 class RefreshState(
-    private val onRefresh: suspend RefreshState.() -> Unit,
     private val density: Density,
     private val maxOffset: Float,
-    private val refreshOffset: Float
+    private val refreshOffset: Float,
+    private val onRefresh: suspend RefreshState.() -> Unit
 ) {
     private val animatable = Animatable(0f)
 
@@ -52,12 +54,16 @@ class RefreshState(
 
             return remember {
                 RefreshState(
-                    onRefresh = onRefresh,
                     density = density,
                     maxOffset = maxOffset,
-                    refreshOffset = refreshOffset
+                    refreshOffset = refreshOffset,
+                    onRefresh = onRefresh
                 )
             }
         }
+
+        fun Modifier.onRefresh(refreshState: RefreshState) = height(
+            refreshState.value
+        )
     }
 }

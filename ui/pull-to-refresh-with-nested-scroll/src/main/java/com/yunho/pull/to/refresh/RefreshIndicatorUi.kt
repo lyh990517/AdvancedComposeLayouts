@@ -1,8 +1,6 @@
 package com.yunho.pull.to.refresh
 
 import androidx.compose.foundation.layout.Box
-import androidx.compose.foundation.layout.fillMaxWidth
-import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.size
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
@@ -13,12 +11,10 @@ import com.yunho.common.R
 
 @Composable
 fun RefreshIndicator(
-    refreshState: RefreshState
+    modifier: Modifier = Modifier
 ) {
     Box(
-        modifier = Modifier
-            .fillMaxWidth()
-            .height(refreshState.value),
+        modifier = modifier,
         contentAlignment = Alignment.Center
     ) {
         Lottie(
