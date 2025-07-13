@@ -1,6 +1,5 @@
 package com.yunho.pull.to.refresh
 
-import androidx.compose.animation.core.Animatable
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
@@ -16,7 +15,6 @@ import androidx.compose.foundation.lazy.rememberLazyListState
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
-import androidx.compose.runtime.remember
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
@@ -29,13 +27,19 @@ import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import com.yunho.common.samples
+import com.yunho.pull.to.refresh.RefreshIndicator.Companion.rememberRefreshIndicator
+import kotlinx.coroutines.delay
 
 @Composable
 fun PullToRefresh(
     modifier: Modifier = Modifier
 ) {
     val parentListState = rememberLazyListState()
-    val refreshIndicator = remember { Animatable(0f) }
+    val refreshIndicator = rememberRefreshIndicator {
+        delay(1000)
+
+        reset()
+    }
     val nestedScrollConnection = parentListState.rememberNestedScrollConnectionWith(refreshIndicator)
 
     LazyColumn(

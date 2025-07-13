@@ -1,29 +1,63 @@
 package com.yunho.pull.to.refresh
 
 import androidx.compose.animation.core.Animatable
-import androidx.compose.animation.core.AnimationVector1D
-import androidx.compose.foundation.layout.Box
-import androidx.compose.foundation.layout.fillMaxWidth
-import androidx.compose.foundation.layout.height
 import androidx.compose.runtime.Composable
-import androidx.compose.ui.Alignment
-import androidx.compose.ui.Modifier
+import androidx.compose.runtime.Stable
+import androidx.compose.runtime.remember
 import androidx.compose.ui.platform.LocalDensity
-import com.yunho.common.Lottie
-import com.yunho.common.R
+import androidx.compose.ui.unit.Density
+import androidx.compose.ui.unit.Dp
+import androidx.compose.ui.unit.dp
 
-@Composable
-fun RefreshIndicator(
-    refreshIndicator: Animatable<Float, AnimationVector1D>
+@Stable
+class RefreshIndicator(
+    private val onRefresh: suspend RefreshIndicator.() -> Unit,
+    private val density: Density,
+    private val maxOffset: Float,
+    private val refreshOffset: Float
 ) {
-    val density = LocalDensity.current
+    private val animatable = Animatable(0f)
 
-    Box(
-        modifier = Modifier
-            .fillMaxWidth()
-            .height(with(density) { refreshIndicator.value.toDp() }),
-        contentAlignment = Alignment.Center
-    ) {
-        Lottie(animId = R.raw.anim_loading)
+    val isPulling: Boolean get() = animatable.value != 0f
+    val value get() = with(density) { animatable.value.toDp() }
+
+    suspend fun snapTo(value: Float) {
+        animatable.snapTo((animatable.value + value).coerceIn(0f..maxOffset))
+    }
+
+    suspend fun refresh() {
+        if (animatable.value > refreshOffset) {
+            animatable.animateTo(refreshOffset)
+
+            onRefresh()
+        } else {
+            reset()
+        }
+    }
+
+    suspend fun reset() {
+        animatable.animateTo(0f)
+    }
+
+    companion object {
+        @Composable
+        fun rememberRefreshIndicator(
+            refreshOffset: Dp = 60.dp,
+            maxOffset: Dp = 90.dp,
+            onRefresh: suspend RefreshIndicator.() -> Unit
+        ): RefreshIndicator {
+            val density = LocalDensity.current
+            val maxOffset = with(density) { maxOffset.toPx() }
+            val refreshOffset = with(density) { refreshOffset.toPx() }
+
+            return remember {
+                RefreshIndicator(
+                    onRefresh = onRefresh,
+                    density = density,
+                    maxOffset = maxOffset,
+                    refreshOffset = refreshOffset
+                )
+            }
+        }
     }
 }
