@@ -12,9 +12,12 @@ import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 
+const val REFRESH_INDICATOR_INDEX = 1
+
 @Composable
 fun LazyListState.rememberNestedScrollConnectionWith(
-    refreshState: RefreshState
+    refreshState: RefreshState,
+    thresholdIndex: Int = REFRESH_INDICATOR_INDEX
 ): NestedScrollConnection {
     val scope = rememberCoroutineScope()
 
@@ -30,7 +33,7 @@ fun LazyListState.rememberNestedScrollConnectionWith(
                 val consumed = minOf(-scroll, remainingScroll)
 
                 return when {
-                    firstVisibleItemIndex <= 1 -> {
+                    firstVisibleItemIndex <= thresholdIndex -> {
                         if (atTop) {
                             launch { refreshState.pull(scroll) }
                         } else {
