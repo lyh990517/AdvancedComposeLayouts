@@ -5,3 +5,7 @@ plugins {
 android {
     namespace = "com.yunho.pull"
 }
+
+dependencies {
+    implementation(project(":common"))
+}

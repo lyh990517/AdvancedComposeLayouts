@@ -39,6 +39,7 @@ android {
 }
 
 dependencies {
+    implementation(project(":common"))
     implementation(project(":ui:3d-pages"))
     implementation(project(":ui:metallic-shader-card"))
     implementation(project(":ui:animated-gradient"))

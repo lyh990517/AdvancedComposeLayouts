@@ -21,8 +21,8 @@ import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import androidx.navigation.compose.rememberNavController
 import com.yunho.a3d_pages.Animated3DPages
-import com.yunho.advancedcomposelayouts.sample.samples
 import com.yunho.animated_gradient.AnimatedGradient
+import com.yunho.common.samples
 import com.yunho.metallic_shader_card.MetallicShaderCard
 import com.yunho.metallic_shader_card.R
 import com.yunho.pull.to.refresh.PullToRefresh
@@ -78,10 +78,7 @@ fun MainNavGraph(
             }
 
             composable<PullToRefreshWithNestedScroll> {
-                PullToRefresh(
-                    samples = samples.map { painterResource(it) },
-                    modifier = Modifier.fillMaxSize()
-                )
+                PullToRefresh(modifier = Modifier.fillMaxSize())
             }
         }
     }

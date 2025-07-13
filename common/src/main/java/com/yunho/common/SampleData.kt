@@ -1,6 +1,4 @@
-package com.yunho.advancedcomposelayouts.sample
-
-import com.yunho.advancedcomposelayouts.R
+package com.yunho.common
 
 val samples = listOf(
     R.drawable.sample0,

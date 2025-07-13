@@ -25,19 +25,20 @@ import androidx.compose.ui.input.nestedscroll.NestedScrollConnection
 import androidx.compose.ui.input.nestedscroll.NestedScrollSource
 import androidx.compose.ui.input.nestedscroll.nestedScroll
 import androidx.compose.ui.platform.LocalDensity
+import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.text.TextStyle
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.Velocity
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
+import com.yunho.common.samples
 import kotlinx.coroutines.delay
 import kotlinx.coroutines.launch
 import kotlin.math.abs
 
 @Composable
 fun PullToRefresh(
-    samples: List<Painter>,
     modifier: Modifier = Modifier
 ) {
     val density = LocalDensity.current
@@ -171,7 +172,7 @@ fun PullToRefresh(
                             .aspectRatio(2f / 3f)
                             .fillMaxWidth()
                             .padding(horizontal = 80.dp),
-                        painter = it,
+                        painter = painterResource(it),
                         contentDescription = null
                     )
                 }
