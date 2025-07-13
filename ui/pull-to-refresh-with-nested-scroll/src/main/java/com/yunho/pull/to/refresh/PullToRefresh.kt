@@ -2,7 +2,6 @@ package com.yunho.pull.to.refresh
 
 import androidx.compose.animation.core.Animatable
 import androidx.compose.foundation.Image
-import androidx.compose.foundation.gestures.scrollBy
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.aspectRatio
@@ -20,7 +19,6 @@ import androidx.compose.runtime.rememberCoroutineScope
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.geometry.Offset
-import androidx.compose.ui.graphics.painter.Painter
 import androidx.compose.ui.input.nestedscroll.NestedScrollConnection
 import androidx.compose.ui.input.nestedscroll.NestedScrollSource
 import androidx.compose.ui.input.nestedscroll.nestedScroll
@@ -32,6 +30,8 @@ import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.Velocity
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
+import com.yunho.common.Lottie
+import com.yunho.common.R
 import com.yunho.common.samples
 import kotlinx.coroutines.delay
 import kotlinx.coroutines.launch
@@ -89,21 +89,6 @@ fun PullToRefresh(
                         (-consumed).toOffset()
                     }
 
-                    scroll > 0 && parentListState.canScrollBackward -> {
-                        scope.launch {
-                            parentListState.scrollBy(-scroll)
-                        }
-                        Offset(0f, scroll)
-                    }
-
-                    scroll < 0 && parentListState.canScrollForward -> {
-                        scope.launch {
-                            parentListState.scrollBy(-scroll)
-                        }
-
-                        Offset(0f, scroll)
-                    }
-
                     else -> super.onPreScroll(available, source)
                 }
             }
@@ -111,9 +96,7 @@ fun PullToRefresh(
             override suspend fun onPostFling(consumed: Velocity, available: Velocity): Velocity {
                 scope.launch {
                     if (refreshIndicator.value > refreshOffset) {
-                        launch {
-                            refreshIndicator.animateTo(refreshOffset)
-                        }
+                        refreshIndicator.animateTo(refreshOffset)
 
                         delay(2000)
 
@@ -154,7 +137,14 @@ fun PullToRefresh(
         }
 
         item {
-            Text("Refresh")
+            Box(
+                modifier = Modifier
+                    .fillMaxWidth()
+                    .height(with(density) { refreshIndicator.value.toDp() }),
+                contentAlignment = Alignment.Center
+            ) {
+                Lottie(animId = R.raw.anim_loading)
+            }
         }
 
         item {
