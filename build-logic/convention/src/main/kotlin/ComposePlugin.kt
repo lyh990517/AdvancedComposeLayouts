@@ -63,6 +63,7 @@ class ComposePlugin : Plugin<Project> {
                 add("implementation", libs.findLibrary("androidx.ui.graphics").get())
                 add("implementation", libs.findLibrary("androidx.ui.tooling.preview").get())
                 add("implementation", libs.findLibrary("androidx.material3").get())
+                add("implementation", libs.findLibrary("android-lottie-compose").get())
             }
         }
     }
