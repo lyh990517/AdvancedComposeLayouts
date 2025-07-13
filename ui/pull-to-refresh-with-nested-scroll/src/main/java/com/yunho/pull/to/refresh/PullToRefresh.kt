@@ -59,6 +59,7 @@ fun PullToRefresh(
                 val scroll = available.y
 
                 return when {
+                    source != NestedScrollSource.UserInput -> Offset.Zero
                     parentListState.firstVisibleItemIndex <= 1 && !childListState.canScrollBackward -> {
                         val headerHeight = parentListState.layoutInfo.visibleItemsInfo.first().size
                         val remainingScroll = headerHeight - scroll
