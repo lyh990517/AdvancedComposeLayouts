@@ -18,7 +18,7 @@ import androidx.compose.ui.input.pointer.pointerInput
 import androidx.compose.ui.input.pointer.positionChange
 import kotlinx.coroutines.launch
 
-fun Modifier.pinchZoom() = composed {
+fun Modifier.pinchZoom(resetOnRelease: Boolean = true) = composed {
     val scope = rememberCoroutineScope()
     var scale by remember { mutableFloatStateOf(1f) }
     var offset by remember { mutableStateOf(TransformOrigin(0.5f, 0.5f)) }
@@ -76,20 +76,40 @@ fun Modifier.pinchZoom() = composed {
                 } else if (changes.size == 1 && scale > 1f) {
                     val change = changes[0]
                     val dragAmount = change.positionChange()
-                    dragOffset += dragAmount
+                    val newDragOffset = dragOffset + dragAmount
 
-                    val x = baseOffset.pivotFractionX * size.width + dragOffset.x
-                    val y = baseOffset.pivotFractionY * size.height + dragOffset.y
+                    val scaledWidth = size.width * scale
+                    val scaledHeight = size.height * scale
+
+                    val maxOffsetX = (scaledWidth - size.width) / 2f
+                    val maxOffsetY = (scaledHeight - size.height) / 2f
+
+                    val baseX = baseOffset.pivotFractionX * size.width
+                    val baseY = baseOffset.pivotFractionY * size.height
+
+                    val limitedDragOffsetX = newDragOffset.x.coerceIn(
+                        -(baseX + maxOffsetX - size.width / 2f),
+                        maxOffsetX + size.width / 2f - baseX
+                    )
+                    val limitedDragOffsetY = newDragOffset.y.coerceIn(
+                        -(baseY + maxOffsetY - size.height / 2f),
+                        maxOffsetY + size.height / 2f - baseY
+                    )
+
+                    dragOffset = Offset(limitedDragOffsetX, limitedDragOffsetY)
+
+                    val x = baseX + dragOffset.x
+                    val y = baseY + dragOffset.y
 
                     offset = TransformOrigin(
-                        x / size.width,
-                        y / size.height
+                        (x / size.width).coerceIn(0f, 1f),
+                        (y / size.height).coerceIn(0f, 1f)
                     )
 
                     change.consume()
                 }
 
-                if (changes.all { !it.pressed } && scale > 1f) {
+                if (changes.all { !it.pressed } && scale > 1f && resetOnRelease) {
                     scope.launch {
                         animate(
                             initialValue = scale,
@@ -105,3 +125,4 @@ fun Modifier.pinchZoom() = composed {
         }
     }
 }
+
