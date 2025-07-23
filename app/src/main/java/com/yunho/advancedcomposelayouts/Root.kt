@@ -41,5 +41,11 @@ fun Root() {
         ) {
             Text("PullToRefreshWithNestedScroll")
         }
+
+        Button(
+            onClick = { navController.navigateToPinchZoom() }
+        ) {
+            Text("PinchZoom")
+        }
     }
 }

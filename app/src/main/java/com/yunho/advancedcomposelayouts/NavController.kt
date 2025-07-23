@@ -18,3 +18,7 @@ fun NavController.navigateToPullToRefreshWithNestedScroll() {
     navigate(PullToRefreshWithNestedScroll)
 }
 
+fun NavController.navigateToPinchZoom() {
+    navigate(PinchZoom)
+}
+

@@ -22,6 +22,7 @@ import androidx.navigation.compose.composable
 import androidx.navigation.compose.rememberNavController
 import com.yunho.a3d_pages.Animated3DPages
 import com.yunho.animated_gradient.AnimatedGradient
+import com.yunho.common.pinchZoom
 import com.yunho.common.samples
 import com.yunho.metallic_shader_card.MetallicShaderCard
 import com.yunho.metallic_shader_card.R
@@ -79,6 +80,19 @@ fun MainNavGraph(
 
             composable<PullToRefreshWithNestedScroll> {
                 PullToRefresh(modifier = Modifier.fillMaxSize())
+            }
+
+            composable<PinchZoom> {
+                Image(
+                    painter = painterResource(samples.first()),
+                    contentDescription = null,
+                    contentScale = ContentScale.Crop,
+                    modifier = Modifier
+                        .fillMaxWidth()
+                        .aspectRatio(3 / 5f)
+                        .clip(RoundedCornerShape(20.dp))
+                        .pinchZoom()
+                )
             }
         }
     }

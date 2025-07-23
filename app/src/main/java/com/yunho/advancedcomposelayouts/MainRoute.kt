@@ -18,5 +18,8 @@ data object MetallicShaderCard : MainRoute
 data object PullToRefreshWithNestedScroll : MainRoute
 
 @Serializable
+data object PinchZoom : MainRoute
+
+@Serializable
 data object Root : MainRoute
 
