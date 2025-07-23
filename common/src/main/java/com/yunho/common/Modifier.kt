@@ -76,7 +76,7 @@ fun Modifier.pinchZoom(resetOnRelease: Boolean = true) = composed {
                 } else if (changes.size == 1 && scale > 1f) {
                     val change = changes[0]
                     val dragAmount = change.positionChange()
-                    val newDragOffset = dragOffset + dragAmount
+                    val newDragOffset = dragOffset - dragAmount
 
                     val scaledWidth = size.width * scale
                     val scaledHeight = size.height * scale
@@ -125,4 +125,3 @@ fun Modifier.pinchZoom(resetOnRelease: Boolean = true) = composed {
         }
     }
 }
-
